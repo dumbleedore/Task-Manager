@@ -14,4 +14,9 @@ public class TarefaService {
     public Tarefa createTarefa(Tarefa tarefa) {
         return tarefaRepository.save(tarefa);
     }
+    public Tarefa deleteTarefa(Long id){
+        Tarefa tarefa = tarefaRepository.findById(id).get();
+        tarefaRepository.deleteById(id);
+        return tarefa;
+    }
 }

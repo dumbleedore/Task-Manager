@@ -22,6 +22,8 @@ public class Tarefa {
         this.data = data;
         this.status = status;
     }
+    public Tarefa() {
+    }
     public String getNome() {
         return nome;
     }

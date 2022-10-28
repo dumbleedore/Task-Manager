@@ -19,4 +19,16 @@ public class TarefaService {
         tarefaRepository.deleteById(id);
         return tarefa;
     }
+    public List <Tarefa> getAllTarefas(){
+        return tarefaRepository.findAll();
+    }
+    public Tarefa updateTarefa(Long id, Tarefa tarefa){
+        Tarefa tarefaAtualizada = tarefaRepository.findById(id).get();
+        tarefaAtualizada.setNome(tarefa.getNome());
+        tarefaAtualizada.setDescricao(tarefa.getDescricao());
+        tarefaAtualizada.setData(tarefa.getData());
+        tarefaAtualizada.setStatus(tarefa.getStatus());
+        tarefaRepository.save(tarefaAtualizada);
+        return tarefaAtualizada;
+    }
 }

@@ -1,19 +1,27 @@
 version: '3'
 
 services:
-  docker-mysql:
-    image: mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_DATABASE=db
-      - MYSQL_USER=lucas
-      - MYSQL_PASSWORD=123
-    ports:
-      - 10000:3306
 
-  app:
-    image: spring-app
+  myapp-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=MyAppDb
+      - MYSQL_USER=myapp-user
+      - MYSQL_PASSWORD=password
     ports:
-       - 8080:8080
+      - 3306:3306
+
+  myapp-main:
+    image: spring-web
+    restart: on-failure
     depends_on:
-       - docker-mysql
+      - myapp-mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=myapp-mysql
+      - DATABASE_USER=myapp-user
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=MyAppDb
+      - DATABASE_PORT=3306

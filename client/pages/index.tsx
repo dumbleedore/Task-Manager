@@ -1,11 +1,15 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, HStack } from "@chakra-ui/react";
+import { Card } from "../components/Card";
 
 export default function Home() {
   return (
-    <Box>
-      <Text textAlign="center" fontSize="6xl">
-        Hello World
-      </Text>
+    <Box bg="primary">
+      <Flex wrap={"wrap"}>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+      </Flex>
     </Box>
   );
 }

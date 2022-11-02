@@ -25,3 +25,10 @@ services:
       - DATABASE_PASSWORD=password
       - DATABASE_NAME=MyAppDb
       - DATABASE_PORT=3306
+  my-client-app:
+    image: proj-web
+    restart: on-failure
+    depends_on:
+      - myapp-main
+    ports:
+      - 3000:3000

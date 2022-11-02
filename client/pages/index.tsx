@@ -28,13 +28,26 @@ export default function Home() {
     status: "fechado",
     data: "",
   });
+  const handleClick = async () => {
+    await createTask(form);
+    fetchTaskManagerList().then((data) => setTasks(data));
+  };
   React.useEffect(() => {
     fetchTaskManagerList().then((data) => setTasks(data));
   }, []);
   return (
     <Box bg="primary">
       <Flex wrap={"wrap"}>
-        {tasks && tasks.map((item) => <Card key={item.nome}></Card>)}
+        {tasks &&
+          tasks.map((item) => (
+            <Card
+              descricao={item.descricao}
+              status={item.status}
+              nome={item.nome}
+              key={item.nome}
+              data={item.data}
+            ></Card>
+          ))}
       </Flex>
       <Box>
         <Center>
@@ -72,7 +85,7 @@ export default function Home() {
             </Stack>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={() => createTask(form)} colorScheme="blue">
+            <Button onClick={handleClick} colorScheme="blue">
               Create
             </Button>
           </ModalFooter>

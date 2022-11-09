@@ -4,20 +4,18 @@ import org.springframework.stereotype.Service;
 import com.lucas.taskmanager.model.Tarefa;
 import com.lucas.taskmanager.repository.TarefaRepository;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TarefaService {
     @Autowired
     private TarefaRepository tarefaRepository;
-    public List<Tarefa> getTarefas(){
-        return tarefaRepository.findAll();
-    }
     public Tarefa createTarefa(Tarefa tarefa) {
         return tarefaRepository.save(tarefa);
     }
     public Tarefa deleteTarefa(Long id){
-        Tarefa tarefa = tarefaRepository.findById(id).get();
-        tarefaRepository.deleteById(id);
-        return tarefa;
+        Optional<Tarefa> tarefa = tarefaRepository.findById(id);
+        return tarefa.orElse(null);
     }
     public List <Tarefa> getAllTarefas(){
         return tarefaRepository.findAll();

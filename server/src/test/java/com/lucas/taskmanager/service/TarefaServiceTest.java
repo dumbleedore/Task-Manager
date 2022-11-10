@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -30,15 +31,17 @@ class TarefaServiceTest {
     private Optional<Tarefa> opTarefa;
     @BeforeEach
     void beforeAlltests(){
+
         init();
+        MockitoAnnotations.openMocks(this);
     }
     @Test
     void whenRunGetAllTarefas() {
-        Mockito.when(tarefaService.getAllTarefas()).thenReturn(List.of(tarefa));
+        Mockito.when(tarefaRepository.findAll()).thenReturn(List.of(tarefa));
         List<Tarefa> response = tarefaService.getAllTarefas();
-        Assertions.assertNotNull(response);
         Assertions.assertEquals(1,response.size());
-
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(tarefa,response.get(0));
     }
 
     @Test
@@ -48,15 +51,15 @@ class TarefaServiceTest {
         Assertions.assertNotNull(response);
         Assertions.assertEquals("primeira Tarefa",response.getNome());
     }
-
-
-
-
-
     @Test
-    void getAllTarefas() {
-    }
+    void whenRunDeleteTarefa(){
+        Mockito.when(tarefaRepository.findById(Mockito.anyLong())).thenReturn(opTarefa);
+        Tarefa response = tarefaService.deleteTarefa(ID);
+        Assertions.assertEquals(response.getId(),opTarefa.get().getId());
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(Tarefa.class,response.getClass());
 
+    }
     @Test
     void updateTarefa() {
     }

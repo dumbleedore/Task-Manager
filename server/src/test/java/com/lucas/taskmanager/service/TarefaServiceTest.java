@@ -29,6 +29,8 @@ class TarefaServiceTest {
     private TarefaRepository tarefaRepository;
     private Tarefa tarefa;
     private Optional<Tarefa> opTarefa;
+
+    private Tarefa tarefaUpdated;
     @BeforeEach
     void beforeAlltests(){
 
@@ -61,7 +63,14 @@ class TarefaServiceTest {
 
     }
     @Test
-    void updateTarefa() {
+    void whenRunUpdateTarefa() {
+        Mockito.when(tarefaRepository.findById(Mockito.anyLong())).thenReturn(opTarefa);
+        Tarefa response = tarefaService.updateTarefa(ID,tarefaUpdated);
+        Assertions.assertEquals("Tarefa atualizada",response.getNome());
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(Tarefa.class,response.getClass());
+
+
     }
     void init(){
         tarefa = new Tarefa(
@@ -70,5 +79,9 @@ class TarefaServiceTest {
         opTarefa = Optional.of(new Tarefa(
                 ID, PRIMEIRA_TAREFA
                 , DESC, DATA, ABERTA));
+        tarefaUpdated = new Tarefa(
+                2L,"Tarefa atualizada",
+                "desc 2","data 2","fechada"
+        );
     }
 }

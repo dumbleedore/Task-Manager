@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @Entity
 public class Tarefa {
     @Id // primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment Id
+    @GeneratedValue(strategy = GenerationType.AUTO) // auto increment Id
     private Long id;
     private String nome;
     private String descricao;

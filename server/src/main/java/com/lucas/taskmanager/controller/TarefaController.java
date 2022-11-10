@@ -1,58 +1,37 @@
 package com.lucas.taskmanager.controller;
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import com.lucas.taskmanager.model.Tarefa;
 import com.lucas.taskmanager.service.TarefaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 @RestController
 public class TarefaController {
     @Autowired
     private TarefaService tarefaService;
     @GetMapping("/tarefas")
-    public List<Tarefa> getTarefas() {
-        return tarefaService.getAllTarefas();
+    public ResponseEntity<List<Tarefa>> getTarefas() {
+        return ResponseEntity.ok().body(tarefaService.getAllTarefas());
     }
     @PostMapping("/createTarefa")
     @ResponseBody
-    public Tarefa createTarefa(@RequestBody Tarefa tarefa) {
-        try{
-            tarefaService.createTarefa(tarefa);
-            return tarefa;
-        }catch(Error error){
-            System.out.println(error);
-            return null;
-        }
+    public ResponseEntity<Tarefa> createTarefa(@RequestBody Tarefa tarefa){
+        return ResponseEntity.ok().body(tarefaService.createTarefa(tarefa));
     }
     @DeleteMapping("/deleteTarefa")
     @ResponseBody
-    public Tarefa deleteTarefa(@RequestParam String id){
-        try{
+    public ResponseEntity<Tarefa> deleteTarefa(@RequestParam Integer id){
             Tarefa tarefaDeletada = tarefaService.deleteTarefa(Long.valueOf(id));
-            return tarefaDeletada;
-        }
-        catch(Error error){
-            System.out.println(error);
-            return null;
-        }
+            return ResponseEntity.ok().body(tarefaDeletada);
+
     }
     @PutMapping("/updateTarefa")
-    public Tarefa updateTarefa(@RequestParam String id, @RequestBody Tarefa tarefa){
-        try{
+    public ResponseEntity<Tarefa> updateTarefa(@RequestParam Integer id, @RequestBody Tarefa tarefa){
             Tarefa tarefaAtualizada = tarefaService.updateTarefa(Long.valueOf(id), tarefa);
-            return tarefaAtualizada;
-        }
-        catch(Error error){
-            System.out.println(error);
-            return null;
-        }
+            return ResponseEntity.ok().body(tarefaAtualizada);
+
     }
 
     

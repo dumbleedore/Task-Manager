@@ -31,20 +31,22 @@ public class TarefaController {
     }
     @DeleteMapping("/deleteTarefa/{id}")
     @ResponseBody
-    public ResponseEntity<Tarefa> deleteTarefa(@PathVariable Integer id){
+    public ResponseEntity<TarefaDTO> deleteTarefa(@PathVariable Integer id){
             if(tarefaService.doesTaskExist(Long.valueOf(id))){
                 Tarefa tarefaDeletada = tarefaService.deleteTarefa(Long.valueOf(id));
-                return ResponseEntity.ok().body(tarefaDeletada);
+                return ResponseEntity.ok().body(
+                        modelMapper.map(tarefaDeletada,TarefaDTO.class)
+                );
             }
             throw new ResourceNotFoundException("There's no task to delete with that ID");
 
     }
     @PutMapping("/updateTarefa/{id}")
-    public ResponseEntity<Tarefa> updateTarefa(@PathVariable Integer id, @RequestBody Tarefa tarefa){
+    public ResponseEntity<TarefaDTO> updateTarefa(@PathVariable Integer id, @RequestBody Tarefa tarefa){
 
             if(tarefaService.doesTaskExist(Long.valueOf(id))){
                 Tarefa tarefaAtualizada = tarefaService.updateTarefa(Long.valueOf(id), tarefa);
-                return ResponseEntity.ok().body(tarefaAtualizada);
+                return ResponseEntity.ok().body(modelMapper.map(tarefaAtualizada,TarefaDTO.class));
             }
             throw new ResourceNotFoundException("There's no task with that ID");
 

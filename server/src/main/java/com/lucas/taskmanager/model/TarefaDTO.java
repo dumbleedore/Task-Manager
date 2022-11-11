@@ -1,13 +1,12 @@
 package com.lucas.taskmanager.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class TarefaDTO {
-    @JsonIgnore
     private long id;
     private String nome;
     private String descricao;

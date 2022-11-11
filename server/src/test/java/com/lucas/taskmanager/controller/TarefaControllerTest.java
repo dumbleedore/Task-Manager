@@ -56,9 +56,11 @@ class TarefaControllerTest {
     @Test
     void whenRunDeleteTarefa() {
         Mockito.when(service.deleteTarefa(Mockito.anyLong())).thenReturn(tarefa);
-        ResponseEntity<Tarefa> response = tarefaController.deleteTarefa(1);
+        Mockito.when(modelMapper.map(Mockito.any(),Mockito.any())).thenReturn(tarefaDTO);
+        Mockito.when(service.doesTaskExist(Mockito.anyLong())).thenReturn(true);
+        ResponseEntity<TarefaDTO> response = tarefaController.deleteTarefa((int)ID);
         Assertions.assertEquals(1,response.getBody().getId());
-        Assertions.assertEquals(Tarefa.class,response.getBody().getClass());
+        Assertions.assertEquals(TarefaDTO.class,response.getBody().getClass());
         Assertions.assertNotNull(response);
     }
 
@@ -66,10 +68,9 @@ class TarefaControllerTest {
     void whenUpdateTarefa() {
         Mockito.when(service.updateTarefa(Mockito.anyLong(),Mockito.any()))
                 .thenReturn(tarefaUpdated);
-        ResponseEntity<Tarefa> response = tarefaController.updateTarefa(1,tarefaUpdated);
-        Assertions.assertEquals(2,response.getBody().getId());
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(Tarefa.class,response.getBody().getClass());
+        Mockito.when(service.doesTaskExist(Mockito.anyLong())).thenReturn(true);
+        ResponseEntity<TarefaDTO> response = tarefaController.updateTarefa(1,tarefa);
+        System.out.println(response.getBody());
     }
 
     void init(){

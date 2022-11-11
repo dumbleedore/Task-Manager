@@ -1,6 +1,7 @@
 package com.lucas.taskmanager.controller;
 
 import com.lucas.taskmanager.model.Tarefa;
+import com.lucas.taskmanager.model.TarefaDTO;
 import com.lucas.taskmanager.service.TarefaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -22,8 +24,11 @@ class TarefaControllerTest {
     @InjectMocks
     TarefaController tarefaController;
     @Mock
+    ModelMapper modelMapper;
+    @Mock
     TarefaService service;
     Tarefa tarefa;
+    TarefaDTO tarefaDTO;
     Tarefa tarefaUpdated;
     @BeforeEach
     void beforeAll(){
@@ -33,7 +38,8 @@ class TarefaControllerTest {
     @Test
     void whenRunGetTarefas() {
         Mockito.when(service.getAllTarefas()).thenReturn(List.of(tarefa));
-        ResponseEntity<List<Tarefa>> response = tarefaController.getTarefas();
+        Mockito.when(modelMapper.map(Mockito.any(), Mockito.any())).thenReturn(tarefaDTO);
+        ResponseEntity<List<TarefaDTO>> response = tarefaController.getTarefas();
         Assertions.assertNotNull(response);
         Assertions.assertEquals(1,response.getBody().size());
         Assertions.assertEquals(1,response.getBody().get(0).getId());
@@ -68,6 +74,7 @@ class TarefaControllerTest {
 
     void init(){
         tarefa = new Tarefa(ID, TAREFA, DESCRICAO, DATA, STATUS);
+        tarefaDTO = new TarefaDTO(ID, TAREFA, DESCRICAO, DATA, STATUS);
         tarefaUpdated = new Tarefa(2L,TAREFA,DESCRICAO,DATA,STATUS);
     }
 }

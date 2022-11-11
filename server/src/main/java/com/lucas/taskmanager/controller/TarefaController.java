@@ -1,5 +1,6 @@
 package com.lucas.taskmanager.controller;
 
+import com.lucas.taskmanager.exceptions.ResourceNotFoundException;
 import com.lucas.taskmanager.model.Tarefa;
 import com.lucas.taskmanager.service.TarefaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,14 @@ public class TarefaController {
     public ResponseEntity<Tarefa> createTarefa(@RequestBody Tarefa tarefa){
         return ResponseEntity.ok().body(tarefaService.createTarefa(tarefa));
     }
-    @DeleteMapping("/deleteTarefa")
+    @DeleteMapping("/deleteTarefa/{id}")
     @ResponseBody
-    public ResponseEntity<Tarefa> deleteTarefa(@RequestParam Integer id){
-            Tarefa tarefaDeletada = tarefaService.deleteTarefa(Long.valueOf(id));
-            return ResponseEntity.ok().body(tarefaDeletada);
+    public ResponseEntity<Tarefa> deleteTarefa(@PathVariable Integer id){
+            if(tarefaService.doesTaskExist(Long.valueOf(id))){
+                Tarefa tarefaDeletada = tarefaService.deleteTarefa(Long.valueOf(id));
+                return ResponseEntity.ok().body(tarefaDeletada);
+            }
+            throw new ResourceNotFoundException("There's no task to delete with that ID");
 
     }
     @PutMapping("/updateTarefa")

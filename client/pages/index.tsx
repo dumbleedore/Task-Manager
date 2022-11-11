@@ -15,7 +15,7 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react";
-import { Card } from "../components/card";
+import { Card } from "../components/Card";
 import React from "react";
 import { createTask, fetchTaskManagerList } from "../services/services";
 import Task from "../interface/task";

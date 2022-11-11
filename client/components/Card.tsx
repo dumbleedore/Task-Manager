@@ -2,7 +2,6 @@ import { Box, Button, Heading, Text, HStack } from "@chakra-ui/react";
 import React from "react";
 import Task from "../interface/task";
 
-// create a simple card component with description //
 export const Card: React.FC<Task> = (props) => {
   return (
     <Box
@@ -17,7 +16,7 @@ export const Card: React.FC<Task> = (props) => {
     >
       <Heading size="lg">{props.nome}</Heading>
       <HStack>
-        <Text as={"b"}>Descrição</Text>
+        <Text as={"b"}>Descrição: </Text>
         <Text>{props.descricao}</Text>
       </HStack>
       <HStack>

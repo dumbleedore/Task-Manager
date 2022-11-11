@@ -20,6 +20,10 @@ public class TarefaService {
     public List <Tarefa> getAllTarefas(){
         return tarefaRepository.findAll();
     }
+    public Boolean doesTaskExist(Long id){
+        Optional<Tarefa> task = tarefaRepository.findById(id);
+        return task.orElse(null) != null;
+    }
     public Tarefa updateTarefa(Long id, Tarefa tarefa){
         Tarefa tarefaAtualizada = tarefaRepository.findById(id).get();
         tarefaAtualizada.setNome(tarefa.getNome());

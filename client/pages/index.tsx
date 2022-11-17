@@ -15,7 +15,7 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react";
-import { Card } from "../components/card";
+import { Card } from "../components/Card";
 import React from "react";
 import { createTask, fetchTaskManagerList } from "../services/services";
 import Task from "../interface/task";
@@ -25,7 +25,7 @@ export default function Home() {
   const [form, setForm] = React.useState<Task>({
     nome: "",
     descricao: "",
-    status: "fechado",
+    status: "aberto",
     data: "",
   });
   const handleClick = async () => {
@@ -40,12 +40,8 @@ export default function Home() {
       <Flex wrap={"wrap"}>
         {tasks &&
           tasks.map((item) => (
-            <Card
-              descricao={item.descricao}
-              status={item.status}
-              nome={item.nome}
-              key={item.nome}
-              data={item.data}
+            <Card key={item.id}
+             {...item}
             ></Card>
           ))}
       </Flex>

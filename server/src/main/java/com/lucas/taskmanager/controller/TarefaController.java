@@ -27,8 +27,8 @@ public class TarefaController {
             return ResponseEntity.ok().body(tarefaDeletada);
 
     }
-    @PutMapping("/updateTarefa")
-    public ResponseEntity<Tarefa> updateTarefa(@RequestParam Integer id, @RequestBody Tarefa tarefa){
+    @PutMapping("/updateTarefa/{id}")
+    public ResponseEntity<Tarefa> updateTarefa(@PathVariable(value = "id") Integer id, @RequestBody Tarefa tarefa){
             Tarefa tarefaAtualizada = tarefaService.updateTarefa(Long.valueOf(id), tarefa);
             return ResponseEntity.ok().body(tarefaAtualizada);
 

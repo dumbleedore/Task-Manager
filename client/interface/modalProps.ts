@@ -3,4 +3,5 @@ export default interface modalProps extends Task{
     isOpen : boolean;
     onClose : () => void;
     onOpen : () => void;
+    isCreate : boolean;
 }

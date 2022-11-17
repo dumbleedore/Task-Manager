@@ -28,7 +28,7 @@ export const Card: React.FC<Task> = (props) => {
       </HStack>
       <Button colorScheme="blue" mr={2}>Complete Task</Button>
       <Button colorScheme="yellow" onClick={onOpen}>Edit Task</Button>
-      <ModalComp {...props} onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
+      <ModalComp isCreate={false} {...props} onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };

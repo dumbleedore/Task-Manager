@@ -14,7 +14,7 @@ import {
 import React from 'react'
 import modalProps from '../interface/modalProps';
 import Task from '../interface/task';
-import { updateTask } from '../services/services';
+import { createTask, updateTask } from '../services/services';
 export const ModalComp: React.FC<modalProps> = (props) => {
   const [form, setForm] = React.useState<Task>({
     id: props.id,
@@ -24,33 +24,37 @@ export const ModalComp: React.FC<modalProps> = (props) => {
     data: props.data,
   });
   const handleClick = async () => {
-    await updateTask(props.id,form);
-    window.location.reload();
+    if(!props.isCreate){
+      await updateTask(props.id,form);
+      window.location.reload();
+      return;
+    }
+    await createTask(form);
   }
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose}>
     <ModalOverlay />
     <ModalContent>
-      <ModalHeader>Update Task</ModalHeader>
+      <ModalHeader>{props.isCreate ? "Create Task" : "Update Task"}</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <Stack>
           <Input
-          defaultValue={props.nome}
+          defaultValue={props.isCreate ? "" : props.nome}
           onChange={(event) => {
             setForm({ ...form, nome: event.target.value });
           }}
             placeholder="Task Name"
           />
           <Textarea
-              defaultValue={props.descricao}
+          defaultValue={props.isCreate ? "" : props.descricao}
           onChange={(event) => {
             setForm({ ...form, descricao: event.target.value });
           }}
             placeholder="Task Description"
           />
           <Input
-          defaultValue={props.data}
+          defaultValue={props.isCreate ? "" : props.data}
           onChange={(event) => {
             setForm({ ...form, data: event.target.value });
           }}
@@ -61,7 +65,7 @@ export const ModalComp: React.FC<modalProps> = (props) => {
       </ModalBody>
       <ModalFooter>
         <Button onClick={handleClick}  colorScheme="blue">
-          Update
+          {props.isCreate ? "Create Task" : "Update Task"}
         </Button>
       </ModalFooter>
     </ModalContent>

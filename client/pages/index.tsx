@@ -20,10 +20,6 @@ export default function Home() {
     status: "aberto",
     data: "",
   });
-  const handleClick = async () => {
-    await createTask(form);
-    fetchTaskManagerList().then((data) => setTasks(data));
-  };
   React.useEffect(() => {
     fetchTaskManagerList().then((data) => setTasks(data));
   }, []);

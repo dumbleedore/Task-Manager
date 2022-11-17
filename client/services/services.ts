@@ -1,9 +1,8 @@
 import axios from "axios";
 import Task from "../interface/task";
 export const fetchTaskManagerList = async () => {
-  const { data } = await axios.get("http://localhost:8080/tarefas");
-  console.log(data);
-  return data;
+  const response = await axios.get("http://localhost:8080/tarefas");
+  return response.data;
 };
 
 export const createTask = async (task: Task) => {

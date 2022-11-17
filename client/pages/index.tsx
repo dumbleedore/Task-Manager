@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { Card } from "../components/Card";
 import React from "react";
-import { createTask, fetchTaskManagerList } from "../services/services";
+import { fetchTaskManagerList } from "../services/services";
 import Task from "../interface/task";
 import { ModalComp } from "../components/ModalComp";
 export default function Home() {
@@ -25,6 +25,7 @@ export default function Home() {
   }, []);
   return (
     <Box bg="primary">
+      <h1>HOME</h1>
       <Flex wrap={"wrap"}>
         {tasks &&
           tasks.map((item) => (

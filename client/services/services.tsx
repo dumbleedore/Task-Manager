@@ -12,6 +12,6 @@ export const createTask = async (task: Task) => {
 };
 
 export const updateTask = async (taskId : number,task: Task) =>{
-  const { data } = await axios.post(`http://localhost:8080/updateTarefa${taskId}`, task);
+  const { data } = await axios.put(`http://localhost:8080/updateTarefa/${taskId}`, task);
   return new Promise((resolve) => resolve(data));
 }

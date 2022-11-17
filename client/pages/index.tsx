@@ -19,6 +19,7 @@ import { Card } from "../components/Card";
 import React from "react";
 import { createTask, fetchTaskManagerList } from "../services/services";
 import Task from "../interface/task";
+import { ModalComp } from "../components/ModalComp";
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tasks, setTasks] = React.useState<Task[]>([]);

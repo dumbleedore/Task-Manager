@@ -1,8 +1,10 @@
-import { Box, Button, Heading, Text, HStack } from "@chakra-ui/react";
+import { Box, Button, Heading, Text, HStack  ,useDisclosure} from "@chakra-ui/react";
 import React from "react";
-import Task from "../interface/task";
+import Task from "../interface/task"; 
+import { ModalComp } from "./ModalComp";
 
 export const Card: React.FC<Task> = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box
     onClick={() => console.log(props)}
@@ -25,7 +27,8 @@ export const Card: React.FC<Task> = (props) => {
         <Text>{props.status}</Text>
       </HStack>
       <Button colorScheme="blue" mr={2}>Complete Task</Button>
-      <Button colorScheme="yellow">Edit Task</Button>
+      <Button colorScheme="yellow" onClick={onOpen}>Edit Task</Button>
+      <ModalComp {...props} onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };

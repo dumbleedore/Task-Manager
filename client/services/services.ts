@@ -6,11 +6,11 @@ export const fetchTaskManagerList = async () => {
 };
 
 export const createTask = async (task: Task) => {
-  const { data } = await axios.post("http://localhost:8080/createTarefa", task);
-  return new Promise((resolve) => resolve(data));
+  const response = await axios.post("http://localhost:8080/createTarefa", task);
+  return new Promise((resolve) => resolve(response.data));
 };
 
 export const updateTask = async (taskId : number,task: Task) =>{
-  const { data } = await axios.put(`http://localhost:8080/updateTarefa/${taskId}`, task);
-  return new Promise((resolve) => resolve(data));
+  const response = await axios.put(`http://localhost:8080/updateTarefa/${taskId}`, task);
+  return response.data;
 }
